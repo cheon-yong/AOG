@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Define;
+using UnityEngine.UIElements.Experimental;
 
 public class PlayerController : MonoBehaviour
 {
@@ -59,19 +61,28 @@ public class PlayerController : MonoBehaviour
 	public void OnAttack1(InputValue value)
 	{
 		Debug.Log("Attack1");
-		skillExecutor.TryUse(skillData1);
+		skillExecutor.TryUse(skillData1, BuildContext());
 	}
 
 	public void OnAttack2(InputValue value)
 	{
 		Debug.Log("Attack2");
-		skillExecutor.TryUse(skillData2);
+		skillExecutor.TryUse(skillData2, BuildContext());
 	}
 
 	public void OnAttack3(InputValue value)
 	{
 		Debug.Log("Attack3");
-		skillExecutor.TryUse(skillData3);
+		skillExecutor.TryUse(skillData3, BuildContext());
 	}
 
+	private SkillContext BuildContext()
+	{
+		return new SkillContext
+		{
+			Caster = gameObject,
+			CastPos = transform.position,
+			AimDir = spriter.flipX ? new Vector2(-1f, 0f).normalized : new Vector2(1f, 0f).normalized,
+		};
+	}
 }

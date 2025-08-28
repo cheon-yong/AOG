@@ -17,4 +17,5 @@ MonoBehaviour:
   cooldown: 5
   animatorTrigger: 
   sfx: {fileID: 0}
-  effects: []
+  effects:
+  - {fileID: 11400000, guid: c989664b2ec41cd4f8d745d80fad7476, type: 2}
