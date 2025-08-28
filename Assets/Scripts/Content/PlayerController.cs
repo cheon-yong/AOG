@@ -2,16 +2,19 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static Define;
 using UnityEngine.UIElements.Experimental;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerController : MonoBehaviour
 {
-	public float speed;
+	public float moveSpeed;
 	private Rigidbody2D rb;
 	private Vector2 moveVelocity;
 	float inputValue;
 	Animator anim;
 	SpriteRenderer spriter;
 	SkillExecutor skillExecutor;
+
+	[SerializeField] GameObject target;
 
 	
 	[SerializeField] SkillData skillData1;
@@ -28,13 +31,13 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 	{
-		Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-		moveVelocity = moveInput.normalized * speed;
+		// Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+		// moveVelocity = moveInput.normalized * moveSpeed;
 	}
 
 	private void FixedUpdate()
 	{
-		rb.linearVelocityX = inputValue * speed;
+		rb.linearVelocityX = inputValue * moveSpeed;
 		//rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
 	}
 
@@ -76,6 +79,13 @@ public class PlayerController : MonoBehaviour
 		skillExecutor.TryUse(skillData3, BuildContext());
 	}
 
+	public GameObject GetTarget()
+	{
+		Monster monster = FindObjectOfType<Monster>();
+		target = monster.gameObject;
+		return null;
+	}
+
 	private SkillContext BuildContext()
 	{
 		return new SkillContext
@@ -83,6 +93,9 @@ public class PlayerController : MonoBehaviour
 			Caster = gameObject,
 			CastPos = transform.position,
 			AimDir = spriter.flipX ? new Vector2(-1f, 0f).normalized : new Vector2(1f, 0f).normalized,
+			Animator = anim,
+			Now = Time.time,
+			Target = target ? target : GetTarget(),
 		};
 	}
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3346653794981316720}
   - component: {fileID: 1026601926470827469}
   - component: {fileID: 2220881099121359501}
+  - component: {fileID: 6526795398746929801}
   m_Layer: 0
   m_Name: NormalArrow
   m_TagString: Untagged
@@ -115,3 +116,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6526795398746929801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6996450647906153258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08727ec2fff139a45925382cf4ccff80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPoint: {fileID: 0}
+  targetPoint: {fileID: 0}
+  firingAngle: 45
+  gravity: 9.8

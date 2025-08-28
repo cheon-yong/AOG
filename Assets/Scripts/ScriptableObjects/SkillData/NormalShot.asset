@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 886ec73ec9c6bc540afdc338ad576e46, type: 3}
-  m_Name: RollingShot
+  m_Name: NormalShot
   m_EditorClassIdentifier: 
   skillId: 1
   displayName: RollingShot
-  cooldown: 5
+  cooldown: 0.8
   animatorTrigger: 
   sfx: {fileID: 0}
   effects:
-  - {fileID: 11400000, guid: c989664b2ec41cd4f8d745d80fad7476, type: 2}
+  - {fileID: 11400000, guid: 34cf7bf97fc8cb049a768b0d16a1b73b, type: 2}
+  - {fileID: 11400000, guid: 34cf7bf97fc8cb049a768b0d16a1b73b, type: 2}
