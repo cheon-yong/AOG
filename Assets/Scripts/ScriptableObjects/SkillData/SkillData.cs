@@ -8,8 +8,7 @@ public class SkillData : ScriptableObject
 	public string displayName;
 	public float cooldown = 2f;
 
-	[Header("애니메이션/연출")]
-	public string animatorTrigger; 
+	public bool cancelable = true; 
 	public AudioClip sfx;
 
 	[Header("효과 목록")]

@@ -351,7 +351,6 @@ GameObject:
   - component: {fileID: 637770976}
   - component: {fileID: 637770975}
   - component: {fileID: 637770977}
-  - component: {fileID: 637770974}
   - component: {fileID: 637770979}
   - component: {fileID: 637770980}
   - component: {fileID: 637770983}
@@ -364,18 +363,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &637770974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637770973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59c8eb31b77d26e4ba5451020d9f2f30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &637770975
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -612,8 +599,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  usingSkill: 0
   target: {fileID: 1053017056}
-  skillData1: {fileID: 11400000, guid: d2c77e1009b50e540957fdc8c8dbb005, type: 2}
+  baseSkillData: {fileID: 11400000, guid: d2c77e1009b50e540957fdc8c8dbb005, type: 2}
+  skillData1: {fileID: 11400000, guid: 869155a05d538f541b64b865efb78ada, type: 2}
   skillData2: {fileID: 0}
   skillData3: {fileID: 0}
 --- !u!61 &637770981
@@ -977,7 +966,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
+  usingSkill: 0
   target: {fileID: 0}
+  baseSkillData: {fileID: 0}
   skillData1: {fileID: 11400000, guid: d2c77e1009b50e540957fdc8c8dbb005, type: 2}
   skillData2: {fileID: 0}
   skillData3: {fileID: 0}
@@ -993,6 +984,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c8eb31b77d26e4ba5451020d9f2f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 0
+  usingSkill: 0
+  target: {fileID: 0}
+  baseSkillData: {fileID: 0}
+  skillData1: {fileID: 0}
+  skillData2: {fileID: 0}
+  skillData3: {fileID: 0}
 --- !u!50 &1053017062
 Rigidbody2D:
   serializedVersion: 5

@@ -45,7 +45,8 @@ public class SkillExecutor : MonoBehaviour
 	{
 		foreach (var eff in data.effects)
 		{
-			if (eff != null) yield return eff.Apply(ctx); // 읽기 전용으로 전달
+			if (eff != null) 
+				yield return eff.Apply(ctx); // 읽기 전용으로 전달
 		}
 	}
 }

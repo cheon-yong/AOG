@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 886ec73ec9c6bc540afdc338ad576e46, type: 3}
-  m_Name: NormalShot
+  m_Script: {fileID: 11500000, guid: 54f20d4867ca17e4ca34f85a7b010ad8, type: 3}
+  m_Name: CreateMultiProjectile
   m_EditorClassIdentifier: 
-  skillId: 1
-  displayName: NormalShot
-  cooldown: 0.8
-  cancelable: 1
-  sfx: {fileID: 0}
-  effects:
-  - {fileID: 11400000, guid: 34cf7bf97fc8cb049a768b0d16a1b73b, type: 2}
+  prefab: {fileID: 6996450647906153258, guid: cde6938a8b8726e4495423dd721fef90, type: 3}
+  delay: 0.3
+  interval: 0.2
+  count: 3
+  lifetime: 1.5
+  offset: {x: 0.5, y: 0}
+  speed: 10

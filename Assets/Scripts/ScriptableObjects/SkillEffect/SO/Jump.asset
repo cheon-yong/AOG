@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 886ec73ec9c6bc540afdc338ad576e46, type: 3}
-  m_Name: NormalShot
+  m_Script: {fileID: 11500000, guid: 711ad7254ff65b84ea8ef0ab5a677cff, type: 3}
+  m_Name: Jump
   m_EditorClassIdentifier: 
-  skillId: 1
-  displayName: NormalShot
-  cooldown: 0.8
-  cancelable: 1
-  sfx: {fileID: 0}
-  effects:
-  - {fileID: 11400000, guid: 34cf7bf97fc8cb049a768b0d16a1b73b, type: 2}
+  height: 10

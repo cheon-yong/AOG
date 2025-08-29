@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e4bf070959a93747bb5e5a599aeabda, type: 3}
-  m_Name: CreateParabolaArrow
+  m_Script: {fileID: 11500000, guid: d1375c02f7933b142b9fd614ebe89915, type: 3}
+  m_Name: SetUsingSkillFalse
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6996450647906153258, guid: cde6938a8b8726e4495423dd721fef90, type: 3}
-  lifetime: 3
-  offset: {x: 0.2, y: 0.2}
-  speed: 20
+  usingSkill: 0

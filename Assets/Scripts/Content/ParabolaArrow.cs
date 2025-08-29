@@ -19,6 +19,7 @@ public class ParabolaArrow : MonoBehaviour
 	{
 		S = start; M = mid; E = end;
 		speed = Mathf.Max(0.01f, speedPerSec);
+
 		// t=0.5에서 M을 지나가도록 제어점 계산
 		C = 2f * M - 0.5f * (S + E);
 
