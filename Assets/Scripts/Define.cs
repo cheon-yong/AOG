@@ -19,4 +19,12 @@ public class Define
 		public int Damage;			// 데미지 수치
 		public float Now;				// 데미지 발생 시간
 	}
+	public enum MonsterState
+	{
+		Move = 0,
+		Idle,
+		Skill,
+		Max,
+	}
+
 }

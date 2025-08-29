@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LayerMask
+public class LayerNumber
 {
 	public const int Platform	= 6;
 	public const int Projectile = 7;

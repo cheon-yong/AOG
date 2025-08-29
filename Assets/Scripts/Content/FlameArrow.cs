@@ -7,7 +7,7 @@ public class FlameArrow : Arrow
 
 	public override void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.layer == LayerMask.Platform)
+		if (collision.gameObject.layer == LayerNumber.Platform)
 		{
 			var go = Instantiate(flame, transform.position, Quaternion.identity);
 			Destroy(gameObject);
@@ -15,7 +15,7 @@ public class FlameArrow : Arrow
 			return;
 		}
 
-		if (collision.gameObject.layer == LayerMask.Character)
+		if (collision.gameObject.layer == LayerNumber.Character)
 		{
 			if (collision.gameObject == owner)
 				return;

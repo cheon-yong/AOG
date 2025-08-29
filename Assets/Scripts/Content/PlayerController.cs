@@ -6,12 +6,10 @@ using static Define;
 public class PlayerController : MonoBehaviour
 {
 	[Header("Stat")]
-	public int MaxHp { get; private set; } = 200;
-	public int Hp { get; private set; } = 200;
-
-	public int Damage { get; private set; } = 10;
-
-	public float moveSpeed { get; private set; } = 5;
+	public int MaxHp = 200;
+	public int Hp = 200;
+	public int Damage = 10;
+	public float moveSpeed = 5;
 
 	[Header("State")]
 	public bool usingSkill = false;
@@ -19,25 +17,23 @@ public class PlayerController : MonoBehaviour
 	public UnityEvent<DamageContext> OnDamage;
 	public UnityEvent<DamageContext> OnDeath;
 
-	private Rigidbody2D rb;
+	protected Rigidbody2D rb;
 	
-	float inputValue;
-	Animator anim;
-	SpriteRenderer spriter;
-	SkillExecutor skillExecutor;
-
-	private Vector2 moveVelocity;
+	protected float inputValue;
+	protected Animator anim;
+	protected SpriteRenderer spriter;
+	protected SkillExecutor skillExecutor;
 
 	[SerializeField] GameObject target;
 
 	[Header("Skill")]
-	[SerializeField] SkillData baseSkillData;
+	[SerializeField] protected SkillData baseSkillData;
 
-	[SerializeField] SkillData skillData1;
-	[SerializeField] SkillData skillData2;
-	[SerializeField] SkillData skillData3;
+	[SerializeField] protected SkillData skillData1;
+	[SerializeField] protected SkillData skillData2;
+	[SerializeField] protected SkillData skillData3;
 
-	private void Start()
+	protected virtual void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
@@ -49,19 +45,12 @@ public class PlayerController : MonoBehaviour
 		GameManager.Instance.OnGameEnd.AddListener(GameEnd);
 	}
 
-	private void Update()
-	{
-		// Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-		// moveVelocity = moveInput.normalized * moveSpeed;
-	}
-
-	private void FixedUpdate()
+	protected void FixedUpdate()
 	{
 		rb.linearVelocityX = inputValue * moveSpeed;
-		//rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
 	}
 
-	private void LateUpdate()
+	protected void LateUpdate()
 	{
 		anim.SetFloat("Speed", Mathf.Abs(rb.linearVelocityX));
 
@@ -97,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
 	public void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (collision.gameObject.layer == LayerMask.Platform)
+		if (collision.gameObject.layer == LayerNumber.Platform)
 		{
 			SetIdle(true);
 		}
@@ -163,7 +152,7 @@ public class PlayerController : MonoBehaviour
 		return target;
 	}
 
-	private SkillContext BuildContext()
+	protected SkillContext BuildContext()
 	{
 		return new SkillContext
 		{
@@ -176,7 +165,7 @@ public class PlayerController : MonoBehaviour
 		};
 	}
 
-	private DamageContext BuildDamageContext(GameObject attacker,
+	protected DamageContext BuildDamageContext(GameObject attacker,
 											GameObject victim,
 											int damage)
 	{

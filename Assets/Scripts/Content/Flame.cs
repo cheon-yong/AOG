@@ -8,7 +8,7 @@ public class Flame : SpawnedObject
 
 	public void OnTriggerStay2D(Collider2D collision)
 	{
-		if (collision.gameObject.layer == LayerMask.Character)
+		if (collision.gameObject.layer == LayerNumber.Character)
 		{
 			if (collision.gameObject == owner)
 				return;

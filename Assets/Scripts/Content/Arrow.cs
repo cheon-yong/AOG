@@ -8,13 +8,13 @@ public class Arrow : SpawnedObject
 
 	public virtual void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.layer == LayerMask.Platform)
+		if (collision.gameObject.layer == LayerNumber.Platform)
 		{
 			Destroy(gameObject);
 			return;
 		}
 
-		if (collision.gameObject.layer == LayerMask.Character)
+		if (collision.gameObject.layer == LayerNumber.Character)
 		{
 			if (collision.gameObject == owner)
 				return;
