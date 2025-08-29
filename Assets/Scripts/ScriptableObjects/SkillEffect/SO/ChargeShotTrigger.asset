@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 005fcefb7e10f7e4b891442287bfff46, type: 3}
-  m_Name: CreateNormalArrowWithDelay
+  m_Script: {fileID: 11500000, guid: 1daf1ee545dfff748983a849c34a0226, type: 3}
+  m_Name: ChargeShotTrigger
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6996450647906153258, guid: cde6938a8b8726e4495423dd721fef90, type: 3}
-  delay: 1.5
-  lifetime: 0.5
-  offset: {x: 0.5, y: 0}
-  speed: 10
+  animationTrigger: ChargeShot
+  canTrigger: 0

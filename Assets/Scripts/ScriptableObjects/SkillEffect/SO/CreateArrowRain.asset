@@ -9,11 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 005fcefb7e10f7e4b891442287bfff46, type: 3}
-  m_Name: CreateNormalArrowWithDelay
+  m_Script: {fileID: 11500000, guid: c457c382db9d17b4e81dad2ec345b296, type: 3}
+  m_Name: CreateArrowRain
   m_EditorClassIdentifier: 
   prefab: {fileID: 6996450647906153258, guid: cde6938a8b8726e4495423dd721fef90, type: 3}
   delay: 1.5
-  lifetime: 0.5
-  offset: {x: 0.5, y: 0}
+  minInterval: 0.1
+  maxInterval: 0.2
+  count: 7
+  lifetime: 2
+  offset: {x: 0, y: 8}
+  minoffsetX: -1
+  maxoffsetX: 1
   speed: 10

@@ -603,7 +603,7 @@ MonoBehaviour:
   target: {fileID: 1053017056}
   baseSkillData: {fileID: 11400000, guid: d2c77e1009b50e540957fdc8c8dbb005, type: 2}
   skillData1: {fileID: 11400000, guid: 869155a05d538f541b64b865efb78ada, type: 2}
-  skillData2: {fileID: 0}
+  skillData2: {fileID: 11400000, guid: 3ce051688503391408ac0d53fbcdca7b, type: 2}
   skillData3: {fileID: 0}
 --- !u!61 &637770981
 BoxCollider2D:

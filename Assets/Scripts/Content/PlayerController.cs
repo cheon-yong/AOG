@@ -60,6 +60,12 @@ public class PlayerController : MonoBehaviour
 
 	public void OnMove(InputValue value)
 	{
+		if (usingSkill)
+		{
+			inputValue = 0f;
+			return;
+		}
+
 		inputValue = value.Get<Vector2>().x;
 	}
 
@@ -68,8 +74,7 @@ public class PlayerController : MonoBehaviour
 		// 하드 코딩. 고쳐야함
 		if (collision.gameObject.layer == LayerMask.Platform)
 		{
-			anim.SetBool("CanTrigger", true);
-			anim.SetTrigger("Idle");
+			SetIdle();
 		}
 	}
 
@@ -77,6 +82,18 @@ public class PlayerController : MonoBehaviour
 	{
 		skillExecutor.TryUse(baseSkillData, BuildContext());
 	}
+	public virtual void OnChageShotEnd()
+	{
+		SetIdle();
+	}
+
+	private void SetIdle()
+	{
+		usingSkill = false;
+		anim.SetBool("CanTrigger", true);
+		anim.SetTrigger("Idle");
+	}
+
 
 	public void OnAttack1(InputValue value)
 	{

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 886ec73ec9c6bc540afdc338ad576e46, type: 3}
+  m_Name: ArrowRain
+  m_EditorClassIdentifier: 
+  skillId: 3
+  displayName: ArrowRain
+  cooldown: 3
+  cancelable: 0
+  sfx: {fileID: 0}
+  effects:
+  - {fileID: 11400000, guid: 82157f400fb9c8845b3f06afa1328cfe, type: 2}
+  - {fileID: 11400000, guid: 11563184191a418438ebe2c360efe80d, type: 2}
+  - {fileID: 11400000, guid: 7146e5a056823074c88e9c62ab9f27a8, type: 2}
+  - {fileID: 11400000, guid: dacd5a62257f6aa4694c44756768cec6, type: 2}
