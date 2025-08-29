@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f20d4867ca17e4ca34f85a7b010ad8, type: 3}
   m_Name: CreateMultiProjectile
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6996450647906153258, guid: cde6938a8b8726e4495423dd721fef90, type: 3}
+  prefab: {fileID: 6996450647906153258, guid: 60bc393e2009cb64a9d536990d682293, type: 3}
   delay: 0.3
   interval: 0.2
   count: 3

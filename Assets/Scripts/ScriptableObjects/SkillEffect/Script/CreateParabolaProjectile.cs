@@ -6,6 +6,7 @@ using static Define;
 public class CreateParabolaProjectile : SkillEffect
 {
 	public GameObject prefab;
+	public float delay = 0f;
 	public float lifetime = 3.0f;
 	public Vector2 offset;
 	public float speed = 1.0f;
@@ -15,6 +16,9 @@ public class CreateParabolaProjectile : SkillEffect
 	{
 		if (!prefab)
 			yield break;
+
+		if (delay > 0f) 
+			yield return new WaitForSeconds(delay);
 
 		var go = Instantiate(prefab, ctx.CastPos + offset, Quaternion.identity);
 

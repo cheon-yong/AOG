@@ -6,7 +6,7 @@ public class Arrow : SpawnedObject
 
     public int damage = 0;
 
-	public void OnTriggerEnter2D(Collider2D collision)
+	public virtual void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.layer == LayerMask.Platform)
 		{

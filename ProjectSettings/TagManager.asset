@@ -38,8 +38,20 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BG
+    uniqueID: 3310916623
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Character
+    uniqueID: 3847357665
+    locked: 0
+  - name: Object
+    uniqueID: 1896400397
+    locked: 0
+  - name: Platform
+    uniqueID: 2817091001
     locked: 0
   m_RenderingLayers:
   - Default
