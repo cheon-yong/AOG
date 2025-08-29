@@ -1,13 +1,15 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 using static Define;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerController : MonoBehaviour
 {
 	[Header("Stat")]
-	public int MaxHp = 200;
-	public int Hp = 200;
+	public int MaxHp = 100;
+	public int Hp = 100;
 	public int Damage = 10;
 	public float moveSpeed = 5;
 
@@ -16,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
 	public UnityEvent<DamageContext> OnDamage;
 	public UnityEvent<DamageContext> OnDeath;
+	public UnityEvent<SkillData> OnSkill;
 
 	protected Rigidbody2D rb;
 	
@@ -33,14 +36,20 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] protected SkillData skillData2;
 	[SerializeField] protected SkillData skillData3;
 
+	private PlayerInput pi;
+
 	protected virtual void Start()
 	{
+		pi = GetComponent<PlayerInput>();
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
 		spriter = GetComponent<SpriteRenderer>();
 		skillExecutor = GetComponent<SkillExecutor>();
 
 		OnDamage.AddListener(DecreaseHp);
+
+		if (pi)
+			pi.SwitchCurrentActionMap("Player");
 
 		GameManager.Instance.OnGameEnd.AddListener(GameEnd);
 	}
@@ -50,7 +59,7 @@ public class PlayerController : MonoBehaviour
 		rb.linearVelocityX = inputValue * moveSpeed;
 	}
 
-	protected void LateUpdate()
+	protected virtual void LateUpdate()
 	{
 		anim.SetFloat("Speed", Mathf.Abs(rb.linearVelocityX));
 
@@ -65,8 +74,11 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	public void GameEnd(bool clear)
+	public virtual void GameEnd(bool clear)
 	{
+		if (pi)
+			pi.SwitchCurrentActionMap("UI");
+
 		if (Hp > 0f)
 		{
 			SetIdle(false);
@@ -84,6 +96,17 @@ public class PlayerController : MonoBehaviour
 		inputValue = value.Get<Vector2>().x;
 	}
 
+	public void MoveByButton(float x)
+	{
+		if (usingSkill)
+		{
+			inputValue = 0f;
+			return;
+		}
+
+		inputValue = x;
+	}
+
 	public void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (collision.gameObject.layer == LayerNumber.Platform)
@@ -97,7 +120,9 @@ public class PlayerController : MonoBehaviour
 		if (Hp <= 0f)
 			return;
 
-		OnDamage.Invoke(BuildDamageContext(attacker, gameObject, damage));
+		DamageContext ctx = BuildDamageContext(attacker, gameObject, damage);
+		DecreaseHp(ctx);
+		OnDamage.Invoke(ctx);
 	}
 
 	public void DecreaseHp(DamageContext context)
@@ -120,7 +145,7 @@ public class PlayerController : MonoBehaviour
 		SetIdle(true);
 	}
 
-	private void SetIdle(bool CanTrigger)
+	protected void SetIdle(bool CanTrigger)
 	{
 		usingSkill = false;
 		anim.SetBool("CanTrigger", CanTrigger);
@@ -129,20 +154,41 @@ public class PlayerController : MonoBehaviour
 
 	public void OnAttack1(InputValue value)
 	{
-		Debug.Log("Attack1");
 		skillExecutor.TryUse(skillData1, BuildContext());
+		OnSkill.Invoke(skillData1);
 	}
 
 	public void OnAttack2(InputValue value)
 	{
-		Debug.Log("Attack2");
+		inputValue = 0f;
 		skillExecutor.TryUse(skillData2, BuildContext());
+		OnSkill.Invoke(skillData2);
 	}
 
 	public void OnAttack3(InputValue value)
 	{
-		Debug.Log("Attack3");
+		inputValue = 0f;
 		skillExecutor.TryUse(skillData3, BuildContext());
+		OnSkill.Invoke(skillData3);
+	}
+
+	public void AttackByButton(int skillId)
+	{
+		// 하드코딩. 수정해야함
+		switch (skillId)
+		{
+			case 1:
+				OnAttack1(null);
+				break;
+			case 2:
+				OnAttack2(null);
+				break;
+			case 3:
+				OnAttack3(null);
+				break;
+			default:
+				return;
+		}
 	}
 
 	public GameObject GetTarget()

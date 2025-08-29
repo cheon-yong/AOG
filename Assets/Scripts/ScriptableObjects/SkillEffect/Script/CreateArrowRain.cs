@@ -51,7 +51,7 @@ public class CreateArrowRain : SkillEffect
 
 
 			// Z축만 회전
-			float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+			float angle = -90f;
 			go.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
 			var parabola = go.GetComponent<ParabolaArrow>();

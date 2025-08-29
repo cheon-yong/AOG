@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 886ec73ec9c6bc540afdc338ad576e46, type: 3}
   m_Name: ArrowRain
   m_EditorClassIdentifier: 
-  skillId: 3
+  skillId: 2
   displayName: ArrowRain
   cooldown: 3
   cancelable: 0

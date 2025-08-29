@@ -24,7 +24,8 @@ public class Define
 		Move = 0,
 		Idle,
 		Skill,
-		Max,
+		Dead,
+		Win,
 	}
 
 }

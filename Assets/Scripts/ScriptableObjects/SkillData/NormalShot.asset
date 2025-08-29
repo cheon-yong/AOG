@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 886ec73ec9c6bc540afdc338ad576e46, type: 3}
   m_Name: NormalShot
   m_EditorClassIdentifier: 
-  skillId: 1
+  skillId: 0
   displayName: NormalShot
   cooldown: 0.8
   cancelable: 1

@@ -4,7 +4,7 @@ using UnityEngine;
 public class SkillData : ScriptableObject
 {
 	[Header("기본 정보")]
-	public string skillId;
+	public int skillId;
 	public string displayName;
 	public float cooldown = 2f;
 

@@ -15,7 +15,6 @@ public class GroundProbe : MonoBehaviour
 	{
 		if (collision.gameObject.layer == LayerNumber.Platform)
 		{
-			Debug.Log("Exit");
 			OnCliff.Invoke();
 		}
 	}

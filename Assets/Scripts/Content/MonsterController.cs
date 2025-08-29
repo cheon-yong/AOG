@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using static Define;
 using static UnityEngine.UI.Image;
@@ -8,14 +9,11 @@ public class MonsterController : PlayerController
 	[SerializeField] float moveTime = 0f;
 	[SerializeField] float idleTime = 0f;
 	[SerializeField] float skillTime = 0f;
-	[SerializeField] float cliffCheckDist = 0f;
 	[SerializeField] GroundProbe groundProbe;
-	[SerializeField] Vector2 originProbePos;
-	bool dead = false;
+	[SerializeField] Vector2 originScale;
 
 	float elapsedTime = 0f;
 	float stateChangeInteval = 0f;
-	float additionalInteval = 0f;
 
 	MonsterState currentState;
 	MonsterState beforeState;
@@ -26,21 +24,43 @@ public class MonsterController : PlayerController
 
 		groundProbe = GetComponentInChildren<GroundProbe>();
 		groundProbe.OnCliff.AddListener(OnCliff);
-		originProbePos = groundProbe.transform.localPosition;
+		originScale = transform.localScale;
 		OnDeath.AddListener(MakeDead);
+	}
+
+	protected override void LateUpdate()
+	{
+		base.LateUpdate();
+
+		spriter.flipX = false;
+	}
+
+	public override void GameEnd(bool clear)
+	{
+		base.GameEnd(clear);
+
+		if (Hp > 0f)
+		{
+			currentState = MonsterState.Win;
+			inputValue = 0f;
+			rb.linearVelocityX = 0;
+		}
+	}
+
+	void Flip(Vector2 dir)
+	{
+		transform.localScale = new Vector2(originScale.x * dir.x, originScale.y);
 	}
 
 	public void MakeDead(DamageContext ctx)
 	{
-		dead = true;
+		currentState = MonsterState.Dead;
+		inputValue = 0f;
+		rb.linearVelocityX = 0;
 	}
 
 	private void Update()
 	{
-		if (dead)
-		{
-			return;
-		}
 
 		elapsedTime += Time.deltaTime;
 
@@ -50,12 +70,13 @@ public class MonsterController : PlayerController
 				MoveTick();
 				break;
 			case MonsterState.Idle:
-				StayIdle();
 				break;
 			case MonsterState.Skill:
 				break;
-			case MonsterState.Max:
-				break;
+			case MonsterState.Dead:
+				return;
+			case MonsterState.Win:
+				return;
 		}
 
 		if (elapsedTime >= stateChangeInteval)
@@ -66,7 +87,7 @@ public class MonsterController : PlayerController
 
 	MonsterState GetRandomNextState()
 	{
-		return (MonsterState)Random.Range((int)MonsterState.Move, (int)MonsterState.Idle);
+		return (MonsterState)Random.Range((int)MonsterState.Move, (int)MonsterState.Dead);
 	}
 
 	void EnterNextState(MonsterState newState)
@@ -83,18 +104,19 @@ public class MonsterController : PlayerController
 
 				// 시작 방향 랜덤
 				inputValue = Random.value < 0.5f ? -1 : +1;
-				spriter.flipX = inputValue < 0f;
-				float probePosX = originProbePos.x * inputValue;
-				groundProbe.transform.localPosition = new Vector2(probePosX, originProbePos.y);
-				
+				Flip(new Vector2(inputValue, 0));				
 				break;
 
 			case MonsterState.Idle:
 				stateChangeInteval = beforeState == currentState ? idleTime * 0.5f : idleTime;
+				inputValue = -1;
+				Flip(new Vector2(inputValue, 0));
 				break;
 
 			case MonsterState.Skill:
 				stateChangeInteval = skillTime;
+				inputValue = -1;
+				Flip(new Vector2(inputValue, 0));
 				UseSkill(); // 즉시 발동
 				break;
 		}
@@ -110,23 +132,15 @@ public class MonsterController : PlayerController
 
 	void OnCliff()
 	{
-		groundProbe.transform.localPosition = new Vector2(-groundProbe.transform.localPosition.x, originProbePos.y);
 		inputValue *= -1;
-
-		rb.linearVelocityX = inputValue * moveSpeed;
-		spriter.flipX = inputValue < 0f;
+		Flip(new Vector2(inputValue, 0));
 	}
 
 	// 아무것도 안함
-	void StayIdle()
-	{
-		return;
-	}
 
 	public void UseSkill()
 	{
 		stateChangeInteval = skillTime;
-
 		// 하드 코딩. 수정 필요
 		int skillIndex = Random.Range(0, 3);
 		switch (skillIndex)

@@ -10,7 +10,7 @@ public class NumberTextManager : MonoBehaviour
 
 	private void Start()
 	{
-        characters = FindObjectsOfType<PlayerController>();
+        characters = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
         foreach (var character in characters)
         {
             character.OnDamage.AddListener(CreateNumberText);

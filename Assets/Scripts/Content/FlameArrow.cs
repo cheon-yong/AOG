@@ -10,6 +10,12 @@ public class FlameArrow : Arrow
 		if (collision.gameObject.layer == LayerNumber.Platform)
 		{
 			var go = Instantiate(flame, transform.position, Quaternion.identity);
+			var spawndObject = go.GetComponent<SpawnedObject>();
+			if (spawndObject != null)
+			{
+				spawndObject.owner = owner;
+			}
+
 			Destroy(gameObject);
 			Destroy(go, flameLifeTime);
 			return;
