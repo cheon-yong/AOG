@@ -22,3 +22,4 @@ MonoBehaviour:
   minoffsetX: -1
   maxoffsetX: 1
   speed: 10
+  damageRatio: 0.7

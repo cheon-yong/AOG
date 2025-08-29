@@ -1,22 +1,36 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using static Define;
 
 public class PlayerController : MonoBehaviour
 {
-	public float moveSpeed;
+	[Header("Stat")]
+	public int MaxHp { get; private set; } = 200;
+	public int Hp { get; private set; } = 200;
+
+	public int Damage { get; private set; } = 10;
+
+	public float moveSpeed { get; private set; } = 5;
+
+	[Header("State")]
+	public bool usingSkill = false;
+
+	public UnityEvent<DamageContext> OnDamage;
+	public UnityEvent<DamageContext> OnDeath;
+
 	private Rigidbody2D rb;
-	private Vector2 moveVelocity;
+	
 	float inputValue;
 	Animator anim;
 	SpriteRenderer spriter;
 	SkillExecutor skillExecutor;
 
-	public bool usingSkill = false;
-
+	private Vector2 moveVelocity;
 
 	[SerializeField] GameObject target;
 
+	[Header("Skill")]
 	[SerializeField] SkillData baseSkillData;
 
 	[SerializeField] SkillData skillData1;
@@ -29,6 +43,10 @@ public class PlayerController : MonoBehaviour
 		anim = GetComponent<Animator>();
 		spriter = GetComponent<SpriteRenderer>();
 		skillExecutor = GetComponent<SkillExecutor>();
+
+		OnDamage.AddListener(DecreaseHp);
+
+		GameManager.Instance.OnGameEnd.AddListener(GameEnd);
 	}
 
 	private void Update()
@@ -58,6 +76,14 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	public void GameEnd(bool clear)
+	{
+		if (Hp > 0f)
+		{
+			SetIdle(false);
+		}
+	}
+
 	public void OnMove(InputValue value)
 	{
 		if (usingSkill)
@@ -71,10 +97,28 @@ public class PlayerController : MonoBehaviour
 
 	public void OnCollisionEnter2D(Collision2D collision)
 	{
-		// 하드 코딩. 고쳐야함
 		if (collision.gameObject.layer == LayerMask.Platform)
 		{
-			SetIdle();
+			SetIdle(true);
+		}
+	}
+
+	public void TakeDamage(GameObject attacker, int damage)
+	{
+		if (Hp <= 0f)
+			return;
+
+		OnDamage.Invoke(BuildDamageContext(attacker, gameObject, damage));
+	}
+
+	public void DecreaseHp(DamageContext context)
+	{
+		Hp = (int)Mathf.Clamp(Hp - context.Damage, 0f, MaxHp);
+		if (Hp == 0f)
+		{
+			anim.SetTrigger("Dead");
+			anim.SetBool("CanTrigger", false);
+			OnDeath.Invoke(context);
 		}
 	}
 
@@ -84,16 +128,15 @@ public class PlayerController : MonoBehaviour
 	}
 	public virtual void OnChageShotEnd()
 	{
-		SetIdle();
+		SetIdle(true);
 	}
 
-	private void SetIdle()
+	private void SetIdle(bool CanTrigger)
 	{
 		usingSkill = false;
-		anim.SetBool("CanTrigger", true);
+		anim.SetBool("CanTrigger", CanTrigger);
 		anim.SetTrigger("Idle");
 	}
-
 
 	public void OnAttack1(InputValue value)
 	{
@@ -115,7 +158,7 @@ public class PlayerController : MonoBehaviour
 
 	public GameObject GetTarget()
 	{
-		MonsterController monster = FindObjectOfType<MonsterController>();
+		MonsterController monster = FindFirstObjectByType<MonsterController>();
 		target = monster.gameObject;
 		return target;
 	}
@@ -130,6 +173,19 @@ public class PlayerController : MonoBehaviour
 			Animator = anim,
 			Now = Time.time,
 			Target = target ? target : GetTarget(),
+		};
+	}
+
+	private DamageContext BuildDamageContext(GameObject attacker,
+											GameObject victim,
+											int damage)
+	{
+		return new DamageContext
+		{
+			Attacker = attacker,
+			Victim = victim,
+			Damage = damage,
+			Now = Time.time
 		};
 	}
 }

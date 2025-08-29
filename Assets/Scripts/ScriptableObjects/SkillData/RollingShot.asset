@@ -18,7 +18,6 @@ MonoBehaviour:
   cancelable: 0
   sfx: {fileID: 0}
   effects:
-  - {fileID: 11400000, guid: 82157f400fb9c8845b3f06afa1328cfe, type: 2}
   - {fileID: 11400000, guid: ee92228462d31944a97d3aafd8e94194, type: 2}
   - {fileID: 11400000, guid: 293119705e07d2a47b5329f79698a509, type: 2}
   - {fileID: 11400000, guid: a8b47abdc035251448e5fecd913ab830, type: 2}

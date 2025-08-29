@@ -18,6 +18,7 @@ public class CreateArrowRain : SkillEffect
 	public float minoffsetX = 0f;
 	public float maxoffsetX = 0f;
 	public float speed = 5.0f;
+	public float damageRatio = 1f;
 
 	public override IEnumerator Apply(Define.SkillContext ctx)
 	{
@@ -33,6 +34,14 @@ public class CreateArrowRain : SkillEffect
 		{
 			var dir = (Vector2)ctx.Target.transform.position - standardPos;
 			var go = Instantiate(prefab, standardPos + new Vector2(Random.Range(minoffsetX, maxoffsetX), 0), Quaternion.identity);
+
+			var so = go.GetComponent<Arrow>();
+			if (so != null)
+			{
+				so.owner = ctx.Caster;
+				so.damage = (int)(ctx.Caster.GetComponent<PlayerController>().Damage * damageRatio);
+			}
+				
 
 			var rb = go.GetComponent<Rigidbody2D>();
 

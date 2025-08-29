@@ -9,6 +9,7 @@ public class CreateParabolaProjectile : SkillEffect
 	public float lifetime = 3.0f;
 	public Vector2 offset;
 	public float speed = 1.0f;
+	public float damageRatio = 1.0f;
 
 	public override IEnumerator Apply(SkillContext ctx)
 	{
@@ -16,6 +17,14 @@ public class CreateParabolaProjectile : SkillEffect
 			yield break;
 
 		var go = Instantiate(prefab, ctx.CastPos + offset, Quaternion.identity);
+
+		var so = go.GetComponent<Arrow>();
+		if (so != null)
+		{
+			so.owner = ctx.Caster;
+			so.damage = (int)(ctx.Caster.GetComponent<PlayerController>().Damage * damageRatio);
+		}
+			
 
 		var rb = go.GetComponent<Rigidbody2D>();
 		rb.linearVelocityX = Mathf.Abs(ctx.AimDir.x) * speed;

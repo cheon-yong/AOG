@@ -13,6 +13,7 @@ public class CreateMultiProjectile : SkillEffect
 	public float lifetime = 1.5f;
 	public Vector2 offset;
 	public float speed = 1.0f;
+	public float damageRatio = 1.0f;
 
 	public override IEnumerator Apply(SkillContext ctx)
 	{
@@ -26,15 +27,21 @@ public class CreateMultiProjectile : SkillEffect
 		{
 			Vector2 curPos = ctx.Caster.transform.position;
 			Vector2 targetPos = ctx.Target.transform.position;
-			Vector2 dir = (targetPos - curPos);
+			Vector2 dir = (targetPos - curPos).normalized;
 			var go = Instantiate(prefab, curPos + offset, Quaternion.identity);
+
+			var so = go.GetComponent<Arrow>();
+			if (so != null)
+			{
+				so.owner = ctx.Caster;
+				so.damage = (int)(ctx.Caster.GetComponent<PlayerController>().Damage * damageRatio);
+			}
 
 			var rb = go.GetComponent<Rigidbody2D>();
 
 
 			//rb.linearVelocityX = Mathf.Abs(ctx.AimDir.x) * speed;
-			rb.linearVelocity = new Vector2(ctx.AimDir.x * speed, 
-											dir.y);
+			rb.linearVelocity = new Vector2(dir.x, dir.y) * speed;
 
 
 			// Z축만 회전
