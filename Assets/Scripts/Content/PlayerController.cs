@@ -1,9 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Define;
-using UnityEngine.UIElements.Experimental;
-using static UnityEngine.GraphicsBuffer;
-using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
@@ -50,9 +47,6 @@ public class PlayerController : MonoBehaviour
 	{
 		anim.SetFloat("Speed", Mathf.Abs(rb.linearVelocityX));
 
-		if (usingSkill)
-			return;
-
 		if (inputValue != 0)
 		{
 			spriter.flipX = rb.linearVelocityX < 0;
@@ -69,13 +63,14 @@ public class PlayerController : MonoBehaviour
 		inputValue = value.Get<Vector2>().x;
 	}
 
-	public void OnTriggerEnter2D(Collider2D collision)
+	public void OnCollisionEnter2D(Collision2D collision)
 	{
-		Debug.Log("Trigger");
-		if (collision.gameObject.tag == "Platform")
+		// 하드 코딩. 고쳐야함
+		if (collision.gameObject.layer == LayerMask.Platform)
 		{
-			usingSkill = false;
-		}	
+			anim.SetBool("CanTrigger", true);
+			anim.SetTrigger("Idle");
+		}
 	}
 
 	public virtual void OnShot()

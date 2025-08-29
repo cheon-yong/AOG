@@ -727,7 +727,7 @@ GameObject:
   - component: {fileID: 864291386}
   - component: {fileID: 864291385}
   - component: {fileID: 864291387}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerLand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1178,7 +1178,7 @@ GameObject:
   - component: {fileID: 1496212060}
   - component: {fileID: 1496212059}
   - component: {fileID: 1496212058}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyLand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
